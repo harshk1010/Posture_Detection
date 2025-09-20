@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posture Correction</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posture Correction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: #1a73e8;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #1a73e8;
+            overflow: hidden;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            padding: 14px 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav ul li a:hover {
+            background-color: #0d58b0;
+            border-radius: 5px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #1a73e8;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px;
+            transition: background-color 0.3s;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        button:hover {
+            background-color: #0d58b0;
+        }
+
+        /* Video Feed Styling */
+        #videoFeed {
+            display: block;
+            margin: 20px auto;
+            border: 5px solid #1a73e8;
+            border-radius: 10px;
+        }
+
+        /* Container for content */
+        .content-container {
+            text-align: center;
+        }
+        
+        .info-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Email input styling */
+        #emailForm {
+            margin-top: 20px;
+        }
+
+        #emailForm input {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+            margin-right: 10px;
+            border: 2px solid #1a73e8;
+            border-radius: 5px;
+        }
+
+        #emailForm button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="index2.html">Home</a></li>
+            <li><a href="https://my.clevelandclinic.org/health/articles/posture" target="_blank">Why Right Posture Is Important</a></li>
+            <li><a href="https://www.healthline.com/health/posture-exercises"  target="_blank">Exercises</a></li>
+            <li><a href="https://www.tynorstore.com/product/posture-corrector.html?srsltid=AfmBOopwWUMsQFhXg4helvZmAVljhYlDc561bQqyl6RvZqzwoRC27QKz" target="_blank">Buy our posture Corrector</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <h1>Posture Detection and Correction </h1>
+
+        <button id="startBtn">Start Video</button>
+        <button id="stopBtn" disabled>Stop Video</button>
+
+        <div>
+            <img id="videoFeed" src="" style="display:none;" width="640" height="480" />
+        </div>
+
+        <div id="postureHealth" class="info-text">
+            <h2>Why Posture Health is Important</h2>
+            <p>Good posture is essential for reducing strain on your muscles and joints, improving breathing and circulation, and even boosting confidence. Bad posture can lead to discomfort, headaches, and long-term health issues. Regular posture checks and adjustments can significantly improve overall well-being.</p>
+        </div>
+
+        <div id="gamePoints" class="info-text">
+            <h2>Let us track and Correct ur Posture Health</h2>
+            <p>Let this tab open and carry on with your work. We will notify you if your posture turns out to be wrong. Don’t forget to maintain a good posture!</p>
+        </div>
+
+        <!-- Email Form -->
+        <div id="emailForm" class="info-text">
+            <h2>Enter Your Email for Alerts</h2>
+            <input type="email" id="emailInput" placeholder="Enter your email" required />
+            <button id="submitEmailBtn">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to start video feed
+        $('#startBtn').click(function() {
+            $.ajax({
+                url: '/start_video',
+                type: 'POST',
+                success: function(response) {
+                    if (response.status === 'started') {
+                        $('#videoFeed').show();
+                        $('#videoFeed').attr('src', '{{ url_for("video_feed") }}');
+                        $('#startBtn').prop('disabled', true);
+                        $('#stopBtn').prop('disabled', false);
+                    }
+                }
+            });
+        });
+
+        // Function to stop video feed
+        $('#stopBtn').click(function() {
+            $.ajax({
+                url: '/stop_video',
+                type: 'POST',
+                success: function(response) {
+                    if (response.status === 'stopped') {
+                        $('#videoFeed').hide();
+                        $('#startBtn').prop('disabled', false);
+                        $('#stopBtn').prop('disabled', true);
+                    }
+                }
+            });
+        });
+
+        // Handle email submission
+        $('#submitEmailBtn').click(function() {
+            const email = $('#emailInput').val();
+            if (email) {
+                $.ajax({
+                    url: '/set_email',
+                    type: 'POST',
+                    data: { email: email },
+                    success: function(response) {
+                        alert('Email set successfully!');
+                    },
+                    error: function() {
+                        alert('Failed to set email!');
+                    }
+                });
+            } else {
+                alert('Please enter a valid email address');
+            }
+        });
+    </script>
+</body>
+</html>
