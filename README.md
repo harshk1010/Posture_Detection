@@ -7,10 +7,10 @@ A posture detection web application developed to help users maintain a healthy p
 
 - [Features](#features)  
 - [Tech Stack](#tech-stack)  
-- [Architecture](#architecture)  
+- [Requirement](#requirement)  
 - [Installation](#installation)  
 - [Usage](#usage)  
-- [Database](#database)  
+- [Modules](#modules)  
 - [Contributing](#contributing)  
 
 ---
@@ -76,8 +76,7 @@ Browser: A modern web browser, such as Chrome or Edge, for the extension.
 
 Package Manager: pip for Python dependency management.
 
-# Getting Started
-Installation
+# Installation
 Clone the repository:
 
 Bash
@@ -104,3 +103,34 @@ Navigate to http://127.0.0.1:5000 in your web browser.
 
 Use the browser extension:
 Follow the instructions to install the Chrome Extension and enable it for seamless monitoring.
+
+# Modules
+
+The project is built with several key modules that handle specific functionalities:
+
+Video Input Module: Uses OpenCV (cv2) for capturing and processing video from the webcam.
+
+Pose Detection Module: Employs MediaPipe to detect and track human body landmarks for posture analysis.
+
+Calculation Module: A built-in Python module used for performing mathematical operations like calculating angles between landmarks.
+
+Web Framework Module: Flask is used to create the web application, handle user input, and serve the video feed.
+
+Alert Modules: winsound, tkinter, and smtplib are used to provide different types of alerts when bad posture is detected.
+
+Multithreading Module: threading is used to handle video streaming and frame generation concurrently, ensuring the Flask app remains responsive.
+
+
+
+# Contributing
+Contributions are welcome! If you have suggestions or find any bugs, please follow these steps:
+
+Fork the repository.
+
+Create a new branch: git checkout -b feature-name.
+
+Make your changes and commit them: git commit -m 'Add new feature'.
+
+Push to the branch: git push origin feature-name.
+
+Submit a pull request.
