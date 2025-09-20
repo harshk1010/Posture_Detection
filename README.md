@@ -7,9 +7,8 @@ A posture detection web application developed to help users maintain a healthy p
 
 - [Features](#features)  
 - [Tech Stack](#tech-stack)  
-- [Requirement](#requirement)  
-- [Installation](#installation)  
-- [Usage](#usage)  
+- [Requirements](#requirements)  
+- [Installation](#installation)    
 - [Modules](#modules)  
 - [Contributing](#contributing)  
 
