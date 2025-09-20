@@ -32,25 +32,18 @@ Browser Integration: A Chrome Extension built with Manifest V3 allows for seamle
 
 
 # Tech Stack
-Backend
 
-Flask: A lightweight Python web framework for handling the application's backend logic and serving the web interface.
+Frontend: HTML, CSS, JavaScript, Chrome Extensions with Manifest V3.
 
-MediaPipe: An open-source framework by Google for real-time pose estimation and landmark detection.
+Backend: Flask (RESTful APIs).
 
-OpenCV (cv2): Used for capturing video from the webcam and processing individual frames.
+Database: Not applicable for this mini-project, as persistent storage for posture data is not mentioned in the provided text.
 
-smtplib: A Python library for sending email notifications via the Simple Mail Transfer Protocol (SMTP).
+AI/ML Models: MediaPipe for real-time pose detection.
 
-winsound: A Python library for playing audio alerts on Windows systems.
-
-tkinter: Python's standard library for creating graphical user interfaces, used here to display popup alerts.
-
-Frontend
-
-HTML/CSS: For structuring and styling the web interface.
-
-JavaScript: For interactivity and dynamic elements within the web interface and browser extension.
+Alerts: smtplib for email notifications , 
+        tkinter for on-screen alerts , and 
+        winsound for audio notifications on Windows.
 
 # Requirements
 Hardware
